@@ -11,7 +11,11 @@ import re
 import json
 from datetime import datetime
 import pandas as pd
+import time
+import socket
 
+
+socket.setdefaulttimeout(20)
 lines = re.compile(r'[\n\t]')
 comments = re.compile(r'\/\*(.*?)\*\/')
 spaces = re.compile(r'[ ]{2,}')
@@ -77,6 +81,7 @@ for tag in tags:
         data['country'] = tag
         data['index_name'] = title
         result = pd.concat([result,data],axis=0)
+    time.sleep(2)
 
 
 result.to_excel('covid-data.xlsx','Sheet1')
